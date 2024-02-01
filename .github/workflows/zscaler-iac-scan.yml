@@ -33,8 +33,13 @@ jobs:
       security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
     runs-on: ubuntu-latest
     steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
+        with:
+          egress-policy: audit
+
       - name : Code Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
       - name : Zscaler IAC Scan
         uses : ZscalerCWP/Zscaler-IaC-Action@8d2afb33b10b4bd50e2dc2c932b37c6e70ac1087
         id : zscaler-iac-scan
@@ -51,6 +56,6 @@ jobs:
       #Ensure that the following step is included in order to post the scan results under the code scanning alerts section within the repository.
       - name: Upload SARIF file
         if: ${{ success() || failure() && (steps.zscaler-iac-scan.outputs.sarif_file_path != '') }}
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@2f93e4319b2f04a2efc38fa7f78bd681bc3f7b2f # v2.23.2
         with:
           sarif_file: ${{ steps.zscaler-iac-scan.sarif_file_path }}

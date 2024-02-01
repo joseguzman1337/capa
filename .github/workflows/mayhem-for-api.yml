@@ -32,6 +32,9 @@ on:
     # The branches below must be a subset of the branches above
     branches: [ "master" ]
 
+permissions:
+  contents: read
+
 jobs:
   mayhem-for-api:
     name: Mayhem for API
@@ -42,7 +45,12 @@ jobs:
       contents: read
       security-events: write
     steps:
-      - uses: actions/checkout@v3
+      - name: Harden Runner
+        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
+        with:
+          egress-policy: audit
+
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
 
       # Run your API in the background. Ideally, the API would run in debug
       # mode & send stacktraces back on "500 Internal Server Error" responses
@@ -61,6 +69,6 @@ jobs:
           sarif-report: mapi.sarif
 
       - name: Upload SARIF file
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@2f93e4319b2f04a2efc38fa7f78bd681bc3f7b2f # v2.23.2
         with:
           sarif_file: mapi.sarif

@@ -35,8 +35,13 @@ jobs:
       security-events: write  # for github/codeql-action/upload-sarif to upload SARIF results
       actions: read           # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
     steps:
+    - name: Harden Runner
+      uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
+      with:
+        egress-policy: audit
+
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
 
     - name: Execute gradle build
       run: ./gradlew build    # Change this to build your mobile application
@@ -55,6 +60,6 @@ jobs:
         app_file: app-release-unsigned.apk
 
     - name: Upload SARIF file
-      uses: github/codeql-action/upload-sarif@v2
+      uses: github/codeql-action/upload-sarif@2f93e4319b2f04a2efc38fa7f78bd681bc3f7b2f # v2.23.2
       with:
         sarif_file: Zimperium.sarif
