@@ -35,11 +35,11 @@ jobs:
         run: |
           python -m build
       - name: upload package artifacts
-        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
+        uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
         with:
           path: dist/*
       - name: publish package
-        uses: pypa/gh-action-pypi-publish@f5622bde02b04381239da3573277701ceca8f6a0  # release/v1
+        uses: pypa/gh-action-pypi-publish@2f6f737ca5f74c637829c0f5c3acd0e29ea5e8bf  # release/v1
         with:
           skip-existing: true
           verbose: true
