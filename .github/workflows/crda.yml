@@ -80,8 +80,13 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
 
+      - name: Harden Runner
+        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
+        with:
+          egress-policy: audit
+
       - name: Check out repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 # v2.7.0
 
       # *******************************************************************
       # Required: Instructions to setup project
@@ -100,7 +105,7 @@ jobs:
 
       # https://github.com/redhat-actions/openshift-tools-installer/blob/main/README.md
       - name: Install CRDA CLI
-        uses: redhat-actions/openshift-tools-installer@v1
+        uses: redhat-actions/openshift-tools-installer@2de9a80cf012ad0601021515481d433b91ef8fd5 # v1.12
         with:
           source: github
           github_pat: ${{ github.token }}
@@ -119,7 +124,7 @@ jobs:
       # process to get a SNYK_TOKEN or a CRDA_KEY
       - name: CRDA Scan
         id: scan
-        uses: redhat-actions/crda@v1
+        uses: redhat-actions/crda@6310ee94a6ac8f76b4152b7267c6cd7f1277052c # v1.3
         with:
           crda_key: ${{ secrets.CRDA_KEY }}           # Either use crda_key or snyk_token
           # snyk_token: ${{ secrets.SNYK_TOKEN }}
