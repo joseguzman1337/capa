@@ -30,7 +30,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       - name: Synopsys Action
-        uses: synopsys-sig/synopsys-action@45ec794c72a1dff9baba58ff356386bbbfeb32c7 # v1.6.0
+        uses: synopsys-sig/synopsys-action@29bb5874512881dbdca7afb268c163b1a3daf9db # v1.8.0
         with:
           #------------------------------------------COVERITY-----------------------------------------
           coverity_url: ${{ secrets.COVERITY_URL }}
