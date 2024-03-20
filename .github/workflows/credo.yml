@@ -47,7 +47,7 @@ jobs:
           egress-policy: audit
 
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
-      - uses: erlef/setup-beam@988e02bfe678367a02564f65ca2e37726dc0268f
+      - uses: erlef/setup-beam@2f0cc07b4b9bea248ae098aba9e1a8a1de5ec24c
         with:
           otp-version: ${{matrix.otp}}
           elixir-version: ${{matrix.elixir}}
